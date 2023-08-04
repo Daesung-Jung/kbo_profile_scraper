@@ -12,7 +12,6 @@ import numpy as np
 import pandas as pd
 
 
-df= profile_crawling(10000,99999)
 
 
 def profile_crawling(aa,bb):      
@@ -83,6 +82,7 @@ def profile_crawling(aa,bb):
     #pitcher
            
 
+df= profile_crawling(10000,99999)
             
 
 df.index = df.index+10000
