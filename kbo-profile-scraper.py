@@ -6,49 +6,14 @@ Created on Sun Mar  4 19:49:49 2018
 """
 from selenium import webdriver
 from bs4 import BeautifulSoup
+import requests
+
+import numpy as np
+import pandas as pd
 
 
 df= profile_crawling(10000,99999)
 
-"""
-aaa = pd.read_excel("D:/diego/data/profile_son_1999_and_recent3yrs.xlsx",sheet_name = "rawdata_1999")
-bbb= pd.read_excel("D:/diego/data/profile_son_1999_and_recent3yrs.xlsx",sheet_name = "rawdata_3yrs")
-
-
-
-
-driver=webdriver.Chrome("d:/diego/data/chromedriver.exe")
-import time
-
-for aa in bbb.index:
-    print(aa)    
-    driver.get("https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId="+str(bbb['PlayerId'][aa]))
-    time.sleep(0.1)
-    html = driver.page_source
-    time.sleep(0.1)
-    soup = BeautifulSoup(html,'html.parser')
-    time.sleep(0.1)
- 
-    bbb.loc[aa,'NowTeam']=tt = soup.select("#h4Team")[0].text
-
- 
-    
-
-aaa.to_excel("D:/diego/data/profile_son_1999_and_recent3yrs_2.xlsx",sheet_name = "rawdata_1999")
-bbb.to_excel("D:/diego/data/profile_son_1999_and_recent3yrs_2.xlsx",sheet_name = "rawdata_3yrs")
-
-
-#1. 파일 생성
-writer=pd.ExcelWriter('D:/diego/data/profile_son_1999_and_recent3yrs_2.xlsx', engine='openpyxl')
- 
-#2. 생성 파일에 시트명 지정 후 dataframe에 저장한 결과값 넣기
-aaa.to_excel(writer, sheet_name='rawdata_1999')
-bbb.to_excel(writer, sheet_name='rawdata_3yrs')
- 
-#3. 작성 완료 후 파일 저장
-writer.save()
-
-"""
 
 def profile_crawling(aa,bb):      
     
@@ -67,7 +32,7 @@ def profile_crawling(aa,bb):
     JoinInfo=[]
     playerid=[]
     
-    driver=webdriver.Chrome("d:/diego/data/chromedriver.exe")
+    driver=webdriver.Chrome("C:/Users/shtnr/rapsodo_dashboard-main/assets/chromedriver.exe")
     r=requests.get("https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=71564") # 홈페이지 접속
     c=r.content # content(내용) 받아옴
     
@@ -91,7 +56,7 @@ def profile_crawling(aa,bb):
                                     "Salary":Salary,
                                     "Draft":Draft,
                                     "JoinInfo":JoinInfo})
-            df.to_csv("d:/diego/data/profile_info_.csv")                                                               
+            df.to_csv("C:/data/profile_info_.csv")                                                               
         
         for i in tt:
             try:
@@ -142,7 +107,6 @@ player_info=profile_clean_data(player_info)
 
 df_ = profile_clean_data(df)
 
-import numpy as np
 
 def profile_clean_data(df):
     df['batter_id']=df.index
